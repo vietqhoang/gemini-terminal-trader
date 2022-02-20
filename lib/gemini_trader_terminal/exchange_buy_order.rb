@@ -217,7 +217,7 @@ module GeminiTraderTerminal
 
     def display_new_order
       prompt_say_table do |table|
-        table.title = "New order received at #{Time.at(new_order.body.timestampms).utc.iso8601}"
+        table.title = "New order received at #{Time.at(new_order.body.timestampms/1000).utc.iso8601}"
         table.add_row ['Order ID', new_order.body.order_id]
         table.add_row ['Currency pair', new_order.body.symbol]
         table.add_row ['Exchange', new_order.body.exchange]
