@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 module Api
   module Ticker
     private
@@ -7,6 +9,6 @@ module Api
     def populate_ticker(symbol)
       self.ticker = api.get.ticker(symbol)
     end
-    alias_method :refresh_ticker, :populate_ticker
+    alias refresh_ticker populate_ticker
   end
 end

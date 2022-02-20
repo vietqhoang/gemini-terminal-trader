@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 module Api
   module NotionalVolume
     private
@@ -7,6 +9,6 @@ module Api
     def populate_notional_volume
       self.notional_volume = api.post.notional_volume
     end
-    alias_method :refresh_notional_volume, :populate_notional_volume
+    alias refresh_notional_volume populate_notional_volume
   end
 end

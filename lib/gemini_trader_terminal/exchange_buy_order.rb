@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 require_relative 'base'
 require_relative 'modules/api/balances'
 require_relative 'modules/api/new_order'
@@ -23,7 +25,8 @@ module GeminiTraderTerminal
 
     private
 
-    attr_accessor :base_currency, :limit_price, :order_purchase_amount, :order_fee_amount, :order_total_amount, :quote_currency
+    attr_accessor :base_currency, :limit_price, :order_purchase_amount, :order_fee_amount, :order_total_amount,
+                  :quote_currency
 
     def prompt_buy_order
       populate_quote_currency_pair_chart(balance_currencies)
@@ -101,7 +104,7 @@ module GeminiTraderTerminal
 
     def display_ticker
       prompt_say_table do |table|
-        table.title = "`#{currency_pair}` ticker as of #{Time.at(ticker.body.volume.timestamp/1000).utc}"
+        table.title = "`#{currency_pair}` ticker as of #{Time.at(ticker.body.volume.timestamp / 1000).utc}"
         table.add_row ["Bid (#{quote_currency.upcase})", humanize_number(ticker.body.bid)]
         table.add_row ["Ask (#{quote_currency.upcase})", humanize_number(ticker.body.ask)]
         table.add_row ["Last (#{quote_currency.upcase})", humanize_number(ticker.body.last)]
@@ -146,13 +149,13 @@ module GeminiTraderTerminal
     def prompt_limit_price_options
       latest_order_price = ticker.body.last.to_f
       options = [
-        { percentage: 1, label: 'latest order price'},
-        { percentage: 0.9999, label: '-0.01%'},
-        { percentage: 0.9995, label: '-0.05%'},
-        { percentage: 0.9990, label: '-0.1%'},
-        { percentage: 0.9950, label: '-0.5%'},
-        { percentage: 0.9900, label: '-1%'},
-        { percentage: 0.9500, label: '-5%'}
+        { percentage: 1, label: 'latest order price' },
+        { percentage: 0.9999, label: '-0.01%' },
+        { percentage: 0.9995, label: '-0.05%' },
+        { percentage: 0.9990, label: '-0.1%' },
+        { percentage: 0.9950, label: '-0.5%' },
+        { percentage: 0.9900, label: '-1%' },
+        { percentage: 0.9500, label: '-5%' }
       ]
 
       options.each_with_object({}) do |option, hash|
@@ -163,7 +166,7 @@ module GeminiTraderTerminal
     end
 
     def calculate_itemize_amounts
-      taker_fee_bps = notional_volume.body.api_taker_fee_bps/(100**2).to_f
+      taker_fee_bps = notional_volume.body.api_taker_fee_bps / (100**2).to_f
 
       self.order_fee_amount = adjust_precision(order_total_amount * taker_fee_bps, currency_pair_details.body.quote_increment)
       self.order_purchase_amount = adjust_precision(order_total_amount - order_fee_amount, currency_pair_details.body.quote_increment)
@@ -217,7 +220,7 @@ module GeminiTraderTerminal
 
     def display_new_order
       prompt_say_table do |table|
-        table.title = "New order received at #{Time.at(new_order.body.timestampms/1000).utc.iso8601}"
+        table.title = "New order received at #{Time.at(new_order.body.timestampms / 1000).utc.iso8601}"
         table.add_row ['Order ID', new_order.body.order_id]
         table.add_row ['Currency pair', new_order.body.symbol]
         table.add_row ['Exchange', new_order.body.exchange]
@@ -230,7 +233,9 @@ module GeminiTraderTerminal
         table.add_row ["Original Base Purchase (#{base_currency.upcase})", new_order.body.original_amount]
 
         table.add_separator
-        table.add_row [{ value: "It is recommended to check the order on Gemini's website to make sure the order is correct.", colspan: 2 }]
+        table.add_row [{
+          value: "It is recommended to check the order on Gemini's website to make sure the order is correct.", colspan: 2
+        }]
       end
     end
   end

@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 module Api
   module Balances
     private
@@ -7,7 +9,7 @@ module Api
     def populate_notional_balances
       self.notional_balances = api.post.notional_balances(default_fiat_currency.to_s)
     end
-    alias_method :refresh_notional_balances, :populate_notional_balances
+    alias refresh_notional_balances populate_notional_balances
 
     def available_balance_for_currency(currency)
       refresh_notional_balances

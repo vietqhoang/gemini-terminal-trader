@@ -1,5 +1,8 @@
+# frozen_string_literal: true
+
 require_relative 'base'
 require_relative 'modules/api/balances'
+
 module GeminiTraderTerminal
   class Balances < Base
     include Api::Balances

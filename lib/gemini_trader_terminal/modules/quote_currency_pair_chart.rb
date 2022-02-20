@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 require_relative 'api/symbols'
 
 module QuoteCurrencyPairChart
@@ -18,7 +20,9 @@ module QuoteCurrencyPairChart
       quote_currencies.each_with_object({}) do |quote_currency, hash|
         hash[quote_currency] =
           currency_pairs.body.select do |currency_pair|
-            next false if SIMILARLY_NAMED_CURRENCIES.value?(quote_currency) && SIMILARLY_NAMED_CURRENCIES[quote_currency].any? { |similary_named_currency| currency_pair.end_with?(similary_named_currency) }
+            next false if SIMILARLY_NAMED_CURRENCIES.value?(quote_currency) && SIMILARLY_NAMED_CURRENCIES[quote_currency].any? do |similary_named_currency|
+                            currency_pair.end_with?(similary_named_currency)
+                          end
 
             currency_pair.end_with?(quote_currency)
           end
@@ -32,10 +36,10 @@ module QuoteCurrencyPairChart
           end
       end
   end
-  alias_method :refresh_quote_currency_pair_chart, :populate_quote_currency_pair_chart
+  alias refresh_quote_currency_pair_chart populate_quote_currency_pair_chart
 
   def populate_currency_pair(quote_currency, base_currency)
     self.currency_pair = quote_currency_pair_chart[quote_currency][base_currency]
   end
-  alias_method :refresh_currency_pair, :populate_currency_pair
+  alias refresh_currency_pair populate_currency_pair
 end

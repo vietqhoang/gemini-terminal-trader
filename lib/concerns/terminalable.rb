@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 require 'pastel'
 require 'terminal-table'
 require 'tty-prompt'
@@ -20,19 +22,15 @@ module Terminalable
     prompt.say(string, color: terminal_message_color)
   end
 
-  def prompt_say_table
+  def prompt_say_table(&block)
     prompt.say(
-      terminal_table do |table|
-        yield(table)
-      end,
+      terminal_table(&block),
       color: terminal_table_color
     )
   end
 
-  def terminal_table
-    Terminal::Table.new do |table|
-      yield(table)
-    end
+  def terminal_table(&block)
+    Terminal::Table.new(&block)
   end
 
   def terminal_alert_color

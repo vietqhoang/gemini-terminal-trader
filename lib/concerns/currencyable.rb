@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 module Currencyable
   DEFAULT_FIAT_CURRENCIES = %i[usd].freeze
 

@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 require_relative 'concerns/currencyable'
 require_relative 'concerns/environmentable'
 require_relative 'concerns/terminalable'

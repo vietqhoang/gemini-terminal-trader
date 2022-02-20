@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 require 'base64'
 require 'dotenv/load'
 require 'httparty'
@@ -5,6 +7,7 @@ require 'json'
 require 'recursive-open-struct'
 require 'uri'
 require_relative '../concerns/environmentable'
+
 module GeminiApi
   class Base
     include Environmentable

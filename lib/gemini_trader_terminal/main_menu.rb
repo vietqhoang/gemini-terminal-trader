@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 require_relative 'base'
 require_relative 'balances'
 require_relative 'exchange_buy_order'
@@ -18,7 +20,7 @@ module GeminiTraderTerminal
       when :end_session then end_session_pathway
       end
     end
-    alias_method :return_to_main_menu, :prompt_main_menu
+    alias return_to_main_menu prompt_main_menu
 
     def main_menu_options
       {
