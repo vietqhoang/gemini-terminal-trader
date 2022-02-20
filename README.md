@@ -1,11 +1,6 @@
 # Gemini Trader Terminal
 
 A Ruby client which uses the [Gemini](https://www.gemini.com/) [REST API](https://docs.gemini.com/rest-api/) to place `maker-or-cancel` limit orders on the Gemini Exchange. The currency pairs for orders is limited to `btcusd` and `ethusd`.
-
-## USE AT YOUR OWN RISK
-
-I do not certify or warranty the application works without error. This is strictly for my own personal use and made publically for educational purposes. I do not recommend anyone to use this application. I am not responsible for any issues which may arise from using this project.
-
 ## Why does the application exist?
 
 Gemini charges much lower transaction fees when the order is made through their API.
