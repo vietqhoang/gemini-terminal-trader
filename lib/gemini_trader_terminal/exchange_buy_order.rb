@@ -9,6 +9,7 @@ require_relative 'modules/api/ticker'
 require_relative 'modules/quote_currency_pair_chart'
 
 module GeminiTraderTerminal
+  # Interactive terminal which is responsible for placing new trade orders
   class ExchangeBuyOrder < Base
     include Api::Balances
     include Api::NewOrder
@@ -69,9 +70,13 @@ module GeminiTraderTerminal
         options: ['maker-or-cancel']
       )
 
-      return display_new_order_error if new_order.body.result == 'error'
+      return display_new_order_error if error_placing_new_order?
 
       display_new_order
+    end
+
+    def error_placing_new_order?
+      new_order.body.result == 'error'
     end
 
     def prompt_quote_currency

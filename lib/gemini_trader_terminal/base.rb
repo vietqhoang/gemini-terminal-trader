@@ -1,5 +1,6 @@
 # frozen_string_literal: true
 
+require 'recursive-open-struct'
 require_relative '../concerns/currencyable'
 require_relative '../concerns/environmentable'
 require_relative '../concerns/humanizeable'
@@ -8,6 +9,7 @@ require_relative '../gemini_api/get'
 require_relative '../gemini_api/post'
 
 module GeminiTraderTerminal
+  # Parent class for Gemini Trader terminal. Classes which inherit the parent class generally represent an isolated interactive pathway.
   class Base
     include Currencyable
     include Environmentable
@@ -23,7 +25,7 @@ module GeminiTraderTerminal
 
     private
 
-    attr_accessor :api, :environment, :default_fiat_currency
+    attr_accessor :api
 
     def validate_and_assign_environment(value)
       raise ArgumentError, "Environment must be one of the following: #{ENVIRONMENTS.join(', ')}" unless ENVIRONMENTS.include?(value)
@@ -39,7 +41,7 @@ module GeminiTraderTerminal
 
     def initialize_and_assign_api
       self.api =
-        OpenStruct.new(
+        RecursiveOpenStruct.new(
           get: GeminiApi::Get.new(environment: environment),
           post: GeminiApi::Post.new(environment: environment)
         )

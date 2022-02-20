@@ -3,6 +3,7 @@
 require_relative 'base'
 
 module GeminiApi
+  # Gemini API interface for HTTP method POST
   class Post < Base
     def active_orders
       post(:active_orders)

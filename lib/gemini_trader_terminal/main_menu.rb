@@ -4,6 +4,7 @@ require_relative 'base'
 require_relative 'balances'
 require_relative 'exchange_buy_order'
 module GeminiTraderTerminal
+  # Interactive terminal for main menu options
   class MainMenu < Base
     def initialize(**attributes)
       super

@@ -5,8 +5,8 @@ v1:
   notional_balances: /v1/notionalbalances
   notional_volume: /v1/notionalvolume
   past_orders: /v1/mytrades
-  symbols: /v1/symbols
   symbol_details: /v1/symbols/details
+  symbols: /v1/symbols
   ticker: /v1/pubticker
 v2:
   ticker: /v2/ticker

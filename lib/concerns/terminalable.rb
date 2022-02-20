@@ -4,6 +4,7 @@ require 'pastel'
 require 'terminal-table'
 require 'tty-prompt'
 
+# Sharing common terminal related methods and data
 module Terminalable
   private
 
@@ -23,10 +24,7 @@ module Terminalable
   end
 
   def prompt_say_table(&block)
-    prompt.say(
-      terminal_table(&block),
-      color: terminal_table_color
-    )
+    prompt.say(terminal_table(&block), color: terminal_table_color)
   end
 
   def terminal_table(&block)

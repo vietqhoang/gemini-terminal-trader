@@ -1,17 +1,19 @@
 # frozen_string_literal: true
 
+# Sharing common currency related methods and data
 module Currencyable
   DEFAULT_FIAT_CURRENCIES = %i[usd].freeze
 
   private
+
+  attr_accessor :default_fiat_currency
 
   # NOTE: Gemini return's precision (number of decimals) as a float, ie 0.001.
   def adjust_precision(amount, precision_float)
     amount.to_f.floor(translate_to_number_of_digits(precision_float))
   end
 
-  # NOTE:
-  # To figure out number of decimal digits, the following identified cases will need to be handled:
+  # NOTE: To figure out number of decimal digits, the following identified cases will need to be handled:
   # 1. 0.000000000000001.to_s => "1.0e-15"
   # 2. 0.0001.to_s => "0.0001"
   # 3. 10.to_s => "10"
