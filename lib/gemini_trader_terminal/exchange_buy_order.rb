@@ -75,7 +75,7 @@ module GeminiTraderTerminal
       self.quote_currency =
         prompt.select(
           'What currency would you like to use for the trade?',
-          quote_currency_pair_chart.keys,
+          %w[usd], # quote_currency_pair_chart.keys,
           filter: true,
           per_page: 8
         )
@@ -89,7 +89,7 @@ module GeminiTraderTerminal
       self.base_currency =
         prompt.select(
           'What would you like to trade for?',
-          quote_currency_pair_chart[quote_currency].keys.sort,
+          %w[btc eth], # quote_currency_pair_chart[quote_currency].keys.sort,
           filter: true,
           per_page: 8
         )
