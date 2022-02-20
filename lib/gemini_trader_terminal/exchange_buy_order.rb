@@ -230,7 +230,7 @@ module GeminiTraderTerminal
         table.add_row ["Original Base Purchase (#{base_currency.upcase})", new_order.body.original_amount]
 
         table.add_separator
-        table.add_row ["It is recommended to check the order on Gemini's website to make sure the order is correct."]
+        table.add_row [{ value: "It is recommended to check the order on Gemini's website to make sure the order is correct.", colspan: 2 }]
       end
     end
   end
