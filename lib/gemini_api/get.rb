@@ -3,6 +3,7 @@
 require_relative 'base'
 
 module GeminiApi
+  # Gemini API interface for HTTP method GET
   class Get < Base
     def symbols
       get(:symbols)

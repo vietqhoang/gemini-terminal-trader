@@ -9,11 +9,12 @@ require 'uri'
 require_relative '../concerns/environmentable'
 
 module GeminiApi
+  # Parent class for Gemini API interface. Classes which inherit the parent class generally represent an HTTP method.
   class Base
     include Environmentable
 
     API_ENVIRONMENTS =
-      RecursiveOpenStruct.new({
+      RecursiveOpenStruct.new(
         live: {
           scheme: 'https://',
           hostname: 'api.gemini.com',
@@ -26,7 +27,7 @@ module GeminiApi
           api_key_env_name: 'GEMINI_SANDBOX_API_KEY',
           api_secret_env_name: 'GEMINI_SANDBOX_API_SECRET'
         }
-      }).freeze
+      ).freeze
     API_VERSIONS = %w[v1].freeze
 
     def initialize(api_version: 'v1', **attributes)
@@ -37,7 +38,7 @@ module GeminiApi
 
     private
 
-    attr_accessor :api_key, :api_secret, :endpoints, :environment, :hostname, :scheme, :version
+    attr_accessor :api_key, :api_secret, :endpoints, :hostname, :scheme, :version
 
     def validate_and_assign_environment_details(environment_value)
       raise ArgumentError, "Environment must be one of the following: #{ENVIRONMENTS.join(', ')}" unless ENVIRONMENTS.include?(environment_value)

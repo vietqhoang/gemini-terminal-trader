@@ -1,5 +1,6 @@
 # frozen_string_literal: true
 
+# Sharing common humanizing related methods and data
 module Humanizeable
   private
 
@@ -12,6 +13,10 @@ module Humanizeable
   end
 
   def humanize_integer(integer_string)
-    integer_string.reverse.scan(/\d{3}|.+/).join(',').reverse
+    integer_string.
+      reverse.
+      scan(/\d{3}|.+/).
+      join(',').
+      reverse
   end
 end

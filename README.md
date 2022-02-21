@@ -1,11 +1,12 @@
 # Gemini Trader Terminal
 
-A Ruby client which uses the [Gemini](https://www.gemini.com/) [REST API](https://docs.gemini.com/rest-api/) to place `maker-or-cancel` limit orders on the Gemini Exchange. The currency pairs for orders is limited to `btcusd` and `ethusd`.
+A Ruby client which uses the [Gemini](https://www.gemini.com/) [REST API](https://docs.gemini.com/rest-api/) to place `maker-or-cancel` limit orders on the Gemini Exchange. The currency pairs for orders is limited to `btcusd` and `ethusd`, though trading other currency pairs can be an option.
+
 ## Why does the application exist?
 
-Gemini charges much lower transaction fees when the order is made through their API.
+Gemini charges much lower transaction fees when the order is made through their API. The goal is to be able to place simple limit orders, taking advantage of the low fee.
 
-At the time of this writing the fees are the following:
+At the time of this writing the 30-day fees are the following:
 
 |              | Maker (%) | Taker (%) | Auction (%) | 30 day trading volume ($) | Link                                                                   |
 |--------------|-----------|-----------|-------------|---------------------------|------------------------------------------------------------------------|
@@ -16,11 +17,19 @@ At the time of this writing the fees are the following:
 
 I spent way too much time just to save 15 basis points.
 
+Compared to their main competition, Gemini's API taker fees are much lower when transacting low volumes.
+
+|              | Maker (%) | Taker (%) | 30 day trading volume ($) | Link                                                                             |
+|--------------|-----------|-----------|---------------------------|----------------------------------------------------------------------------------|
+| Bittrex      | 0.350     | 0.350     | < 25,000                  | https://bittrex.zendesk.com/hc/en-us/articles/115000199651-Bittrex-fees          |
+| Coinbase Pro | 0.500     | 0.500     | < 10,000                  | https://help.coinbase.com/en/pro/trading-and-funding/trading-rules-and-fees/fees |
+| Kraken Pro   | 0.160     | 0.260     | < 50,000                  | https://www.kraken.com/en-us/features/fee-schedule/#kraken-pro                   |
+
 ## Installation
 
-1. Install the version of Ruby specificed in the Gemfile using your favorite Ruby management tool.
-2. Run `bundle install`.
-3. Create `.env` and populate the file with the API keys. Sandbox details can be found in [Gemini's API documentation](https://docs.gemini.com/rest-api/#sandbox).
+1. Install the version of Ruby specificed in the [Gemfile](/Gemfile) using your favorite Ruby management tool.
+2. Run `bundle install` to install the dependencies.
+3. Create `.env` in the project root. [Populate the file](https://github.com/bkeepers/dotenv#usage) with the API keys. Sandbox details can be found in [Gemini's API documentation](https://docs.gemini.com/rest-api/#sandbox). The naming of the keys are self explanatory.
    1. Add `GEMINI_SANDBOX_API_KEY`
    2. Add `GEMINI_SANDBOX_API_SECRET`
    3. Add `GEMINI_API_KEY`
@@ -37,3 +46,8 @@ Run `ruby ./lib/ruby.rb` in the terminal to start the interactive UI.
 ![Selecting a limit price](/assets/README/05.png)
 ![Confirm order screen](/assets/README/06.png)
 ![Order placed screen](/assets/README/07.png)
+
+## What is next
+
+* Test suite
+* Code clean-up

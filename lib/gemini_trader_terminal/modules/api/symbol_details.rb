@@ -1,6 +1,8 @@
 # frozen_string_literal: true
 
 module Api
+
+  # Helpers related to Gemini API notional symbol details endpoint
   module SymbolDetails
     private
 

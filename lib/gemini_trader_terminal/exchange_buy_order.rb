@@ -7,14 +7,17 @@ require_relative 'modules/api/notional_volume'
 require_relative 'modules/api/symbol_details'
 require_relative 'modules/api/ticker'
 require_relative 'modules/quote_currency_pair_chart'
+require_relative '../concerns/castable'
 
 module GeminiTraderTerminal
+  # Interactive terminal which is responsible for placing new trade orders
   class ExchangeBuyOrder < Base
     include Api::Balances
     include Api::NewOrder
     include Api::NotionalVolume
     include Api::SymbolDetails
     include Api::Ticker
+    include Castable
     include QuoteCurrencyPairChart
 
     def initialize(**attributes)
@@ -69,16 +72,20 @@ module GeminiTraderTerminal
         options: ['maker-or-cancel']
       )
 
-      return display_new_order_error if new_order.body.result == 'error'
+      return display_new_order_error if error_placing_new_order?
 
       display_new_order
+    end
+
+    def error_placing_new_order?
+      new_order.body.result == 'error'
     end
 
     def prompt_quote_currency
       self.quote_currency =
         prompt.select(
           'What currency would you like to use for the trade?',
-          %w[usd], # quote_currency_pair_chart.keys,
+          access_to_all_available_currency_pairs? ? quote_currency_pair_chart.keys : %w[usd],
           filter: true,
           per_page: 8
         )
@@ -92,7 +99,7 @@ module GeminiTraderTerminal
       self.base_currency =
         prompt.select(
           'What would you like to trade for?',
-          %w[btc eth], # quote_currency_pair_chart[quote_currency].keys.sort,
+          access_to_all_available_currency_pairs? ? quote_currency_pair_chart[quote_currency].keys.sort : %w[btc eth],
           filter: true,
           per_page: 8
         )
@@ -100,6 +107,10 @@ module GeminiTraderTerminal
 
     def currency_pair_not_open_for_trade_pathway
       prompt_say_alert("The status for the trading pair `#{currency_pair}` is `#{currency_pair_details.body.status}`. Support for the trade is not available on Gemini or supported by this terminal.")
+    end
+
+    def access_to_all_available_currency_pairs?
+      cast_boolean(ENV['FEATURE_ACCESS_ALL_AVAILABLE_CURRENCY_PAIRS'])
     end
 
     def display_ticker
