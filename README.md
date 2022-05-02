@@ -1,6 +1,6 @@
 # Disclaimer
 
-This is an coding exploratory project. This project is not meant to be used outside of my own use and knowledge building and is not ready (and will never be ready) for the public to use. If you choose to use this project, proceed at your own risk.
+This is a personal coding exploratory project. This project is not meant to be used outside of my own use and knowledge building. It is not ready (and will never be ready) for the public to use. If you choose to use this project, proceed at your own risk.
 
 # Gemini Trader Terminal
 
